@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Margaret Borowczyk, Ph.D. — UX Researcher & Service Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #FFFFFF;
+    --off-white: #F7F7F5;
+    --ink: #111111;
+    --mid: #555550;
+    --light: #999994;
+    --rule: #E2E2DE;
+    --accent: #1A4FBF;
+    --accent-light: #EBF0FB;
+    --card: #F2F2EF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    padding-top: 90px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 0;
+  }
+
+  .hero-left {
+    padding: 6rem 5rem 6rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.15s;
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.75rem;
+  }
+
+  h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--mid);
+  }
+
+  .hero-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #333330;
+    max-width: 50ch;
+    margin-bottom: 2.75rem;
+  }
+
+  .hero-bio strong { color: var(--ink); }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.7rem 1.6rem;
+    background: var(--ink);
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--accent); }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.7rem 1.6rem;
+    border: 1px solid var(--mid);
+    color: var(--mid);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right {
+    background: var(--off-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 3rem;
+    gap: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--white);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  }
+
+  .career-timeline {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--rule);
+    background: var(--white);
+  }
+
+  .timeline-item {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 300;
+    color: var(--light);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    min-width: 45px;
+  }
+
+  .timeline-content {
+    flex: 1;
+  }
+
+  .timeline-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+
+  .timeline-org {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-top: 0.1rem;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--mid);
+  }
+
+  /* ── CASE STUDIES ── */
+  #work {
+    background: var(--white);
+    border-top: 1px solid var(--rule);
+  }
+
+  .case-studies { display: flex; flex-direction: column; }
+
+  .case-study {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    border: 1px solid var(--rule);
+    border-bottom: none;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .case-study:last-child { border-bottom: 1px solid var(--rule); }
+
+  .case-study::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+
+  .case-study:hover { background: var(--off-white); }
+  .case-study:hover::after { transform: scaleY(1); }
+
+  .cs-meta {
+    padding: 2.5rem;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cs-number {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--rule);
+    line-height: 1;
+  }
+
+  .cs-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .cs-methods {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .cs-method {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--light);
+  }
+
+  .cs-content {
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .cs-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .cs-summary {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444440;
+    max-width: 62ch;
+  }
+
+  .cs-impact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .cs-impact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    background: var(--accent-light);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--off-white);
+    border-top: 1px solid var(--rule);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-body {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: #333330;
+  }
+
+  .about-body p { margin-bottom: 1.25rem; }
+  .about-body strong { color: var(--ink); }
+
+  .skills-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .skill-group-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    background: var(--white);
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── CONTACT ── */
+  #contact {
+    border-top: 1px solid var(--rule);
+    background: var(--white);
+  }
+
+  .contact-inner { max-width: 640px; }
+
+  .contact-intro {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #444440;
+    margin-bottom: 3rem;
+    max-width: 52ch;
+  }
+
+  .contact-links {
+    border: 1px solid var(--rule);
+  }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.15rem 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    transition: background 0.2s;
+    gap: 1rem;
+  }
+
+  .contact-link:last-child { border-bottom: none; }
+  .contact-link:hover { background: var(--off-white); }
+
+  .contact-link-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--light);
+    min-width: 70px;
+  }
+
+  .contact-link-value {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .contact-arrow {
+    color: var(--rule);
+    font-size: 1rem;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .contact-link:hover .contact-arrow {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.75rem 6rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--light);
+  }
+
+  .footer-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--rule);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 5rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--rule); }
+    .hero-right { padding: 3rem 2rem; background: var(--off-white); }
+    section { padding: 4rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .case-study { grid-template-columns: 1fr; }
+    .cs-meta { border-right: none; border-bottom: 1px solid var(--rule); flex-direction: row; flex-wrap: wrap; align-items: center; }
+    footer { padding: 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Margaret Borowczyk, Ph.D.</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Portfolio · 2025</p>
+    <h1>Margaret<br><em>Borowczyk,</em><br>Ph.D.</h1>
+    <p class="hero-title">UX Researcher &amp; Service Designer</p>
+    <p class="hero-bio">
+      I embed research into the decisions that shape how institutions serve people.
+      A linguist by training, I bring <strong>rigorous mixed-methods thinking</strong>
+      to complex government and civic tech challenges — translating evidence into
+      <strong>safer systems, clearer workflows, and more inclusive services</strong>
+      for both the people who use them and the teams who build them.
+    </p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">View Case Studies</a>
+      <a href="Borowczyk-_Resume__1_.pdf" download class="btn-ghost">Download CV</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img
+      src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIVAZADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDyLQNWuJbGA63bXOo2EEiqZ02xzhj90ByD6YGR3qe5vLQXd3JYRT/ZJVz5UpCuHA6/LxkHt3HXBpGltL97q2jjllZrjcoGI1WIR+nHzZ6dMY5rIutT0GTU1isWvba3d/LRJ7gsEPAyzN64zn+leBiMK370TzXKUtEaswk1G2ETGJogu51ZwWwejJ9D1HoafY6ZPBcwhYp1P9pSS2tokILbDEAZSo4woIx2JFV7i2+xs1xE8csUjsq5kRgXUYO1kYjI/I1qeD/Eg007+94Wke1ljWdk3GEsDhlzyCBxWWGqujJRktDKMnF2ZueN7hNbu1ttH0MLaxxwQwFZVdo4BgN5hHAcgHIBOM461ieJvFY0bVtXGgXc2mw3B/dI2xnjjUtgHrk4YjI9qwPEmr36WMNw2oTXVpMisnlXTrCu4dGXrnO7jJGa56/trEELp88EiLF5pdWK7iTyOR8p9q9nmjNcx0QOtXxrZ6T8K10m2R3v7/UC87k58yBQCRz/AHm2g/SuK17xONT1B726tw8r/I6Q/u0CbQBgjnPUcillsvsl5CLiNjF8rOkTDzFVxkLnnDc856elXV0+2Gnsk8iCUYVVWJHJbnIIDbh9cGk6i2LtGJVknnNhFNdrOIC0gjWBR9nDY+6SDzkjn9BXWWF7CLKxmtpBE0ZbfbldhjII4JbhgQP51jLHNpGjzaXFJFd204hmaPcWjRio2SR9NrjkEn0HvVS6L2iGCJ40J2pLNDMWaUHkkbuB6HFc1SEJuxnOKmdg/iS6Gn/Yxqs4tGYSRQxxZUuMsA+3krjOTnIHPOMU+XUHt9Esgk6CF0dLuG3KksxBYbATgj5lGOxzg9q42zu"
+      alt="Margaret Borowczyk"
+      class="hero-photo"
+      onerror="this.style.display='none'"
+    >
+
+    <div class="career-timeline">
+      <div class="timeline-item">
+        <span class="timeline-year">2025</span>
+        <div class="timeline-content">
+          <div class="timeline-role">Senior UX Researcher</div>
+          <div class="timeline-org">Block / Square</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2024</span>
+        <div class="timeline-content">
+          <div class="timeline-role">UX Researcher</div>
+          <div class="timeline-org">Ad Hoc · VA.gov</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2022</span>
+        <div class="timeline-content">
+          <div class="timeline-role">Senior Design Researcher</div>
+          <div class="timeline-org">Intuit · TurboTax</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2021</span>
+        <div class="timeline-content">
+          <div class="timeline-role">Senior UX Researcher</div>
+          <div class="timeline-org">Comcast</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header reveal">
+    <span class="section-label">Selected Work</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title reveal">Research that <em>reshaped</em><br>the roadmap</h2>
+
+  <div class="case-studies">
+
+    <!-- Case Study 1 -->
+    <div class="case-study reveal">
+      <div class="cs-meta">
+        <span class="cs-number">01</span>
+        <span class="cs-type">Govtech · Developer Platform</span>
+        <div class="cs-methods">
+          <span class="cs-method">↳ Stakeholder Interviews (×12)</span>
+          <span class="cs-method">↳ User Interviews + Concept Testing</span>
+          <span class="cs-method">↳ Structured Ranking Exercises</span>
+        </div>
+      </div>
+      <div class="cs-content">
+        <div>
+          <h3 class="cs-title">Scaling a federal developer platform by surfacing what engineers actually needed</h3>
+          <p class="cs-summary">
+            VA's internal developer platform was built on an assumption: templatizing DevOps processes
+            would enable self-service adoption. But adoption was stalling. I led end-to-end research
+            across six engineering teams — pairing stakeholder interviews with structured concept testing —
+            to surface the real blockers: fragmented standards, absent documentation, and no shared
+            spaces for knowledge exchange. The findings directly shaped quarterly OKRs and
+            redirected the platform roadmap.
+          </p>
+        </div>
+        <div class="cs-impact">
+          <span class="cs-impact-item">↗ Shaped quarterly OKRs</span>
+          <span class="cs-impact-item">↗ Standardized templates prioritized</span>
+          <span class="cs-impact-item">↗ Office hours redesigned as structured forum</span>
+          <span class="cs-impact-item">↗ Live demo app with production-ready examples</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case Study 2 -->
+    <div class="case-study reveal">
+      <div class="cs-meta">
+        <span class="cs-number">02</span>
+        <span class="cs-type">Fintech · Mixed Methods</span>
+        <div class="cs-methods">
+          <span class="cs-method">↳ Observational Sessions (n=22)</span>
+          <span class="cs-method">↳ Pre-season Survey (n=500)</span>
+          <span class="cs-method">↳ Tax Peak Survey (n=4,828)</span>
+          <span class="cs-method">↳ SPSS Descriptive Statistics</span>
+        </div>
+      </div>
+      <div class="cs-content">
+        <div>
+          <h3 class="cs-title">Understanding why Credit Karma users abandoned TurboTax — and what rebuilt their trust</h3>
+          <p class="cs-summary">
+            For the first time, Credit Karma and TurboTax partnered to offer a joint tax filing
+            experience. I co-led a full tax season research program — observation sessions,
+            two large-scale surveys, and cross-functional synthesis — to understand where users
+            dropped off and why. Key findings: the login wall interrupted exploration before users
+            understood the product's value; redundant authentication flows broke trust; and W-2
+            photo capture inherited anxiety from prior bad experiences. Every major finding led to
+            a shipped change.
+          </p>
+        </div>
+        <div class="cs-impact">
+          <span class="cs-impact-item">↗ +12% login success rate</span>
+          <span class="cs-impact-item">↗ +3% W-2 conversion lift</span>
+          <span class="cs-impact-item">↗ New low-commitment preview experience</span>
+          <span class="cs-impact-item">↗ Cross-product auth flows redesigned</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-label">About</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-body reveal">
+      <p>
+        I'm a PhD-trained UX Researcher and Service Designer with 9+ years of experience
+        leading mixed-methods research across government, financial technology, and civic tech.
+        My academic background is in <strong>applied linguistics</strong> — which shapes everything
+        about how I work: I pay close attention to how people describe their own experiences,
+        where language breaks down, and what's being left unsaid.
+      </p>
+      <p>
+        I focus on the kinds of problems that sit at the intersection of <strong>infrastructure
+        and human experience</strong> — internal tools that teams depend on, services that need
+        to work for everyone, workflows that quietly create risk when they fail. I'm particularly
+        interested in how research can be designed to be <strong>responsible and inclusive</strong>:
+        trauma-informed methods, accessible design, and research practices that don't extract
+        from the communities they're meant to serve.
+      </p>
+      <p>
+        I've built AI-assisted research workflows that scale qualitative insight, facilitated
+        cross-functional alignment workshops with government and engineering stakeholders,
+        and mentored design teams in research practice. I believe the best research
+        <strong>doesn't end with a deck</strong> — it ends with a decision.
+      </p>
+      <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="Borowczyk-_Resume__1_.pdf" download class="btn-primary">Download CV</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="skills-block reveal">
+      <div>
+        <p class="skill-group-title">Research Methods</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Usability Testing</span>
+          <span class="skill-tag">In-Depth Interviews</span>
+          <span class="skill-tag">Survey Research</span>
+          <span class="skill-tag">Observational Studies</span>
+          <span class="skill-tag">Concept Testing</span>
+          <span class="skill-tag">Stakeholder Interviews</span>
+          <span class="skill-tag">Workshop Facilitation</span>
+          <span class="skill-tag">Trauma-Informed Research</span>
+          <span class="skill-tag">Research Repository Dev</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-title">Tools & Platforms</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Dovetail</span>
+          <span class="skill-tag">Qualtrics</span>
+          <span class="skill-tag">UserTesting</span>
+          <span class="skill-tag">Maze</span>
+          <span class="skill-tag">NotebookLM</span>
+          <span class="skill-tag">Rally</span>
+          <span class="skill-tag">SPSS</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-title">Education</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 400; color: var(--ink);">Ph.D. Applied Linguistics</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; font-weight: 300; color: var(--accent); margin-top: 0.15rem;">Georgetown University</div>
+          </div>
+          <div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 400; color: var(--ink);">M.S.Ed. Intercultural Communication</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; font-weight: 300; color: var(--accent); margin-top: 0.15rem;">University of Pennsylvania</div>
+          </div>
+          <div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 400; color: var(--ink);">B.A. Linguistics & Comparative Literature</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; font-weight: 300; color: var(--accent); margin-top: 0.15rem;">University of Pennsylvania</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-label">Contact</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="contact-inner">
+    <h2 class="section-title reveal" style="margin-bottom: 1.25rem;">Let's <em>talk</em></h2>
+    <p class="contact-intro reveal">
+      I'm open to senior UX Researcher and Service Designer roles in government,
+      civic tech, and mission-driven organizations — as well as consulting engagements
+      and research education partnerships. Best reached by email.
+    </p>
+    <div class="contact-links reveal">
+      <a href="mailto:mborowczyk49@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">mborowczyk49@gmail.com</span>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a href="https://www.linkedin.com/in/mborowczyk" target="_blank" class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-value">linkedin.com/in/mborowczyk</span>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a href="Borowczyk-_Resume__1_.pdf" download class="contact-link">
+        <span class="contact-link-label">CV</span>
+        <span class="contact-link-value">Download PDF</span>
+        <span class="contact-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Margaret Borowczyk, Ph.D. — UX Researcher &amp; Service Designer</span>
+  <span class="footer-note">Arlington, VA · 2025</span>
+</footer>
+
+<script>
+  // Embed photo properly
+  const photoB64 = `/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIVAZADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD`;
+
+  const img = document.querySelector('.hero-photo');
+  if (img) {
+    fetch('20240629_203423__1___1_.jpg')
+      .then(r => { if(r.ok) return r.blob(); throw new Error(); })
+      .then(blob => { img.src = URL.createObjectURL(blob); })
+      .catch(() => { img.src = `data:image/jpeg;base64,${photoB64}`; });
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 90);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
